@@ -20,6 +20,8 @@
 
 ## Steps
 
+### Salesforce DX - Scratch Org
+
 Authorize to your Developer Hub (Dev Hub) org.
 
     sfdx force:auth:web:login -d -a "Hub Org"
@@ -48,6 +50,32 @@ Run your tests.
 Open the scratch org.
 
     sfdx force:org:open --path one/one.app
+
+
+### Salesforce DX - deploy into developer edition or production org
+
+You can use the Salesforce CLI to deploy the source into a regular Salesforce org using the Metatdata API.
+
+Authenticate against the deployment org
+```
+sfdx force:auth:web:login -a yourOrgAlias
+```
+
+Create an output directory for the to be converted source
+```
+mkdir mdapi
+```
+
+Convert the source from Salesforce DX format to Metatdata API format
+```
+sfdx force:source:convert -r force-app -d mdapi
+```
+
+Deploy the source
+```
+sfdx force:mdapi:deploy -d mdapi -u yourOrgAlias
+```
+
 
 ## Resources
 
